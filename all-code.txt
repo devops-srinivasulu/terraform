@@ -376,7 +376,7 @@ resource "aws_instance" "web" {
 }
 
 =====
-REMOTE-EXEC
+REMOTE-EXEC ( creating server and connect ssh from the local and install some thing . 
 =====
 
 
