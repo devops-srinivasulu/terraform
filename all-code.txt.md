@@ -2,7 +2,7 @@
 =====
 count 
 =====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -15,12 +15,12 @@ resource "aws_instance" "web" {
     Name = "my-tf-instance"
   }
 }
-
+```
 
 =====
 count with index added to Name
 =====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -33,9 +33,9 @@ resource "aws_instance" "web" {
     Name = "my-tf-${count.index+1}"
   }
 }
-
+```
 ====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -48,11 +48,11 @@ resource "aws_instance" "web" {
     Name = "My-tf-instance"
   }
 }
-
+```
 ====
 for_each
 ====
-
+```
 variable "bucket_names" {
   type    = set(string)
   default = ["logs", "data", "backups"]
@@ -66,11 +66,11 @@ resource "aws_s3_bucket" "buckets" {
     Name = each.key
   }
 }
-
+```
 ====
 depends_on
 ====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -88,10 +88,11 @@ resource "aws_s3_bucket" "mybucket" {
   depends_on = [ aws_instance.web ]
 }
 
-
+```
 =====
 provider block - with alias
 =====
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -117,7 +118,7 @@ resource "aws_instance" "db" {
     Name = "my-NV-Instance"
   }
 }
-
+```
 =======
 Terraform meta-arguments : Lifecycle
 =======
@@ -125,7 +126,7 @@ Terraform meta-arguments : Lifecycle
 ===
 Create before destroy
 ===
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -140,11 +141,11 @@ resource "aws_instance" "web" {
     Name = "My-tf-instance"
   }
 }
-
+```
 ====
 prevent_destroy
 ====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -159,11 +160,11 @@ resource "aws_instance" "web" {
     Name = "My-tf-instance"
   }
 }
-
+```
 ====
 ignore_changes
 ====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -178,7 +179,7 @@ resource "aws_instance" "web" {
     Name = "My-tf-namechange"
   }
 }
-
+```
 
 ==========
 Statefile management code
@@ -190,16 +191,16 @@ provider "aws" {
 }
 
 # Below code is for local Backend
-
+```
 # terraform {
 #   backend "local" {
 #     path = "/Users/avizway/Desktop/statefile/terraform.tfstate"
 #   }
 # }
 
-
+```
 # Below code is for S3 Backend
-
+```
 # terraform {
 #   backend "s3" {
 #     bucket = "aviz-terraform-state-location"
@@ -218,11 +219,11 @@ resource "aws_instance" "web" {
   }
 }
 
-
+```
 =====
 import block
 =====
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -237,11 +238,11 @@ import {
   id = "i-00f876847b259043b"
 }
 
-
+```
 ===========
 Variables - String Example
 ==========
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -260,11 +261,11 @@ resource "aws_instance" "web" {
   }
 }
 
-
+```
 ===========
 Variables - List Example
 ==========
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -282,12 +283,12 @@ resource "aws_instance" "list_example" {
     environment = "dev"
   }
 }
-
+```
 =====
 
 WITHOUT DYNAMIC - BLOCK
 ======
-
+```
 resource "aws_security_group" "manual_create" {
   name   = "testing-manual-sg"
   vpc_id = "vpc-047489d5215aae1cc"
@@ -324,11 +325,11 @@ resource "aws_security_group" "manual_create" {
   }
 }
 
-
+```
 ======
 WITH DYNAMIC BLOCK
 ======
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -374,11 +375,15 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.al2023.id
   instance_type = "t3.micro"
 }
+```
+========================================================================
 
-=====
-REMOTE-EXEC ( creating server and connect ssh from the local and install some thing . 
-=====
+( creating server and connect ssh from the local and install some thing .  we haev two ways those are 1. remote-exec , 2.  userdata.txt
+========================================================================
 
+1.#### REMOTE-EXEC 
+
+```
 
 provider "aws" {
   region = "ap-south-1"
@@ -408,11 +413,10 @@ resource "aws_instance" "web" {
     Name = "webserver"
   }
 }
+```
+2. #### PASS USER-DATA via TEMPLATE
 
-======
-PASS USER-DATA via TEMPLATE
-======
-
+```
 provider "aws" {
   region = "ap-south-1"
 }
@@ -422,12 +426,23 @@ resource "aws_instance" "new" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = ["sg-0e244adb6f393f9b9"]
   key_name               = "awar06-lnx"
-  user_data              = file("${path.module}/userdata.txt")
+  user_data              = file("${path.module}/userdata.txt")      // ${path.module} => means the userdata.txt is in the corrent directory .
 
   tags = {
     Name = "webserver-with-userdata"
   }
 }
+```
+
+##### userdate.txt
+
+```
+#!/bin/bash
+sudo yum install httpd -y
+sudo systemctl enable httpd --now
+echo '<h1> Deployed via Terraform </h1>' | sudo tee /var/www/html/index.html
+
+```
 
 
 
