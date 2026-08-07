@@ -162,14 +162,21 @@ terraform workspace show   ## you should see dev
 terraform destroy -var-file="dev.tfvars" -auto-approve    # to destroy the infra which is crated under this workspace dev . 
  
   ```
-  smae for prod also .
+  same for prod also .
   ===> in this way we isolate enviromnets by using workspace and .tfvars 
 
 
+
+
   DELTION OF WORKSAPCE  RULES :
+
+
+  
    --> first you shsould empty the workspace which you wanna delete 
    --> then switch to another workspace .. why beacuse if you are current workspace is dev, and you wann delete the dev workspace inly then you can't that fromt he dev workspace . 
-   example :
+
+   
+   EXAMPLE :
     i am going to delete dev work space i should empty that first 
     ```
     terraform workspace select dev
