@@ -120,7 +120,43 @@ terraform apply -var-file="prod.tfvars" -auto-approve
 ## for destroy 
 terraform destroy -var-file="prod.tfvars" -auto-approve
 ```
+==================================================================================================================================
+for supose we are going to  create prod infra(terraform apply -var-file="prod.tfvars") after creating dev infra(terraform apply -var-file="dev.tfvars").. then it first desttry the dev infra then create the prod  one .. if the production its not a suffient method .. when we should keep both dev, prod infra . to aciecve that we have "workspace" concept .
 
+WORKSPACE: it's allow us to isolate  environments (dev,prod...etc) . 
 
+commands::
+```
+1 .terraform workspace list     ## to list the workspaces which we have including current workspace with * mark  
 
+2. terraform workspace show    ## to see current workspace
+
+3. terraform workspace new <name of the workspace>   ## to crate new work space ex:   terraform workspace new dev      it automatically create new one and switch to that workspace >
+
+4. terraform workspace select <name of the workspace>  ## to switch perticular workspace ex: terraform workspace select dev
+
+```
+
+if you wanna create dev infrastructure follow these:
+```
+  terrafrom workspace new dev
+  terraform worksapce list  #or  terraform worksapce show   ## to confirm current workspace is dev
+  terraform apply -var-file="dev.tvars" -auto-approve 
+
+```
+ same for prod also .
+
+ if you wanna destroy  dev infra which is in dev workspace.
+
+ ```
+# first confirm you are under dev workspace if you are under another worksapce switchto dev .
+terraform workspace select dev
+# confirm by that 
+terraform workspace show   ## you should see dev
+## now destroy 
+terraform destroy -var-file="dev.tfvars" -auto-approve    # to destroy the infra which is crated under this workspace dev . 
+ 
+  ```
+  smae for prod also .
+  ===> in this way we isolate enviromnets by using workspace and .tfvars 
 
