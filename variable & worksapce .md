@@ -140,7 +140,8 @@ commands::
 if you wanna create dev infrastructure follow these:
 ```
   terrafrom workspace new dev
-  terraform worksapce list  #or  terraform worksapce show   ## to confirm current workspace is dev
+  ## to confirm current workspace is dev
+  terraform worksapce list  #or  terraform worksapce show
   terraform apply -var-file="dev.tvars" -auto-approve 
 
 ```
