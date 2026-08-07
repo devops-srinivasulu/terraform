@@ -120,7 +120,10 @@ terraform apply -var-file="prod.tfvars" -auto-approve
 ## for destroy 
 terraform destroy -var-file="prod.tfvars" -auto-approve
 ```
-==================================================================================================================================
+==============================================================
+
+
+
 for supose we are going to  create prod infra(terraform apply -var-file="prod.tfvars") after creating dev infra(terraform apply -var-file="dev.tfvars").. then it first desttry the dev infra then create the prod  one .. if the production its not a suffient method .. when we should keep both dev, prod infra . to aciecve that we have "workspace" concept .
 
 WORKSPACE: it's allow us to isolate  environments (dev,prod...etc) . 
