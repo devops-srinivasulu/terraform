@@ -151,7 +151,7 @@ if you wanna create dev infrastructure follow these:
  ```
 # first confirm you are under dev workspace if you are under another worksapce switchto dev .
 terraform workspace select dev
-# confirm by that 
+# confirm the worksapce by using this command 
 terraform workspace show   ## you should see dev
 ## now destroy 
 terraform destroy -var-file="dev.tfvars" -auto-approve    # to destroy the infra which is crated under this workspace dev . 
