@@ -75,12 +75,20 @@ this is for only single environment  what if for suppose we have to create infra
 terraform_project/
 |
 |__ main.tf
-|
+|__ variable.tf
 |__dev.tfvars ## dev relaated values are here example: i am going to keepo instacne type "t2.micro" for dev env
 |
 |__ prod.tfvars  ## prod related values are here example: i am going to keep instance type "t2.medium" for prod env
 
 ```
+## variable.tf 
+
+```
+variable "instance_type" {}
+variable "key_name" {}
+variable "instance_name" {}
+```
+
 ## dev.tfvars
 ```
 instance_type = "t2.micro"   ## if you wann use list you can use like "instance_type = ["t2.micro", "t2.medium"]"
