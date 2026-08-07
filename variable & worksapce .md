@@ -135,6 +135,7 @@ commands::
 
 4. terraform workspace select <name of the workspace>  ## to switch perticular workspace ex: terraform workspace select dev
 
+5. terraform workspace delete <name of workspace> ## to delete the perticular worksapce ex: dev 
 ```
 
 if you wanna create dev infrastructure follow these:
