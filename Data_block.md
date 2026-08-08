@@ -233,6 +233,7 @@ data "aws_vpc" "prod" {
 
 }
 ```
+HINT : HERE TO GET FILTER NAME OF RESOURCE WE NEE DTO SEARCH IN GOOGLE LIKE "AWS <RESOURCE NAME > SUPPORT FILTER " ex: aws security group  support filter .
 
 Now Terraform searches AWS.
 
